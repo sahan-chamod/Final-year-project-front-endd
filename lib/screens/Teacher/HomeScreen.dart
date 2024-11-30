@@ -11,9 +11,7 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.notifications),
-            onPressed: () {
-              // Handle notifications
-            },
+            onPressed: () {},
           ),
           CircleAvatar(
             child: Icon(Icons.person, size: 30, color: Colors.white),
@@ -23,139 +21,140 @@ class HomeScreen extends StatelessWidget {
           SizedBox(width: 10),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.blueAccent, Colors.greenAccent],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.blueAccent, Colors.greenAccent],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    child: Icon(Icons.person, size: 40, color: Colors.white),
-                    backgroundColor: Colors.blueAccent,
-                    radius: 30,
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    'Welcome, Teacher!',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              height: 250,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.blue, Colors.lightBlueAccent],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 3,
-                    blurRadius: 7,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                padding: const EdgeInsets.all(20),
+                child: Row(
                   children: [
-                    Text(
-                      'Student Progress',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                    CircleAvatar(
+                      child: Icon(Icons.person, size: 40, color: Colors.white),
+                      backgroundColor: Colors.blueAccent,
+                      radius: 30,
                     ),
-                    Expanded(
-                      child: LineChart(
-                        LineChartData(
-                          gridData: FlGridData(show: false),
-                          titlesData: FlTitlesData(show: true),
-                          borderData: FlBorderData(
-                            show: true,
-                            border: Border.all(
-                              color: const Color(0xff37434d),
-                              width: 1,
-                            ),
-                          ),
-                          lineBarsData: [
-                            LineChartBarData(
-                              spots: [
-                                FlSpot(0, 1),
-                                FlSpot(1, 2.5),
-                                FlSpot(2, 1.5),
-                                FlSpot(3, 2),
-                                FlSpot(4, 3),
-                              ],
-                              isCurved: true,
-                              color: Colors.white,
-                              dotData: FlDotData(show: false),
-                              belowBarData: BarAreaData(show: false),
-                            ),
-                          ],
-                          lineTouchData: LineTouchData(
-                            touchTooltipData: LineTouchTooltipData(
-                                //tooltipBgColor: Colors.blueAccent,
-                                ),
-                            handleBuiltInTouches: true,
-                          ),
-                        ),
+                    SizedBox(width: 20),
+                    Text(
+                      'Welcome, Teacher!',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Upcoming Events',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: ListView(
-                children: <Widget>[
-                  EventCard(
-                    title: 'Parent-Teacher Meeting',
-                    date: 'August 20, 2024',
-                    icon: Icons.meeting_room,
+              SizedBox(height: 20),
+              Container(
+                height: 250,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.blue, Colors.lightBlueAccent],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  EventCard(
-                    title: 'Math Workshop',
-                    date: 'August 25, 2024',
-                    icon: Icons.calculate,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 3,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Student Progress',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Expanded(
+                        child: LineChart(
+                          LineChartData(
+                            gridData: FlGridData(show: false),
+                            titlesData: FlTitlesData(show: true),
+                            borderData: FlBorderData(
+                              show: true,
+                              border: Border.all(
+                                color: const Color(0xff37434d),
+                                width: 1,
+                              ),
+                            ),
+                            lineBarsData: [
+                              LineChartBarData(
+                                spots: [
+                                  FlSpot(0, 1),
+                                  FlSpot(1, 2.5),
+                                  FlSpot(2, 1.5),
+                                  FlSpot(3, 2),
+                                  FlSpot(4, 3),
+                                ],
+                                isCurved: true,
+                                color: Colors.white,
+                                dotData: FlDotData(show: false),
+                                belowBarData: BarAreaData(show: false),
+                              ),
+                            ],
+                            lineTouchData: LineTouchData(
+                              touchTooltipData: LineTouchTooltipData(),
+                              handleBuiltInTouches: true,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  EventCard(
-                    title: 'Science Fair',
-                    date: 'September 1, 2024',
-                    icon: Icons.science,
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              Text(
+                'Upcoming Events',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              SizedBox(
+                height: 200,
+                child: ListView(
+                  children: <Widget>[
+                    EventCard(
+                      title: 'Parent-Teacher Meeting',
+                      date: 'August 20, 2024',
+                      icon: Icons.meeting_room,
+                    ),
+                    EventCard(
+                      title: 'Math Workshop',
+                      date: 'August 25, 2024',
+                      icon: Icons.calculate,
+                    ),
+                    EventCard(
+                      title: 'Science Fair',
+                      date: 'September 1, 2024',
+                      icon: Icons.science,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

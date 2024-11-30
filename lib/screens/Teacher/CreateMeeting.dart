@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../services/zoomapi.dart';
 
 class CreateMeetingPage extends StatefulWidget {
   @override
@@ -13,7 +14,54 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
 
-  List<Map<String, String>> _meetings = [];
+  final ZoomApiService _zoomApiService = ZoomApiService();
+
+  // Method to create a Zoom meeting
+  void _createZoomMeeting(
+      String title, DateTime dateTime, String duration) async {
+    try {
+      final meeting = await _zoomApiService.createMeeting(
+        title,
+        dateTime,
+        duration,
+        'America/New_York', // Replace with your local timezone
+      );
+      // Show the meeting link or other details from the meeting response
+      final joinUrl = meeting['join_url'];
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Meeting Created'),
+          content: Text('Join your meeting here: $joinUrl'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      // Handle errors
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to create the Zoom meeting: $e'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
   // Method to select date
   Future<void> _selectDate(BuildContext context) async {
@@ -45,29 +93,8 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
     }
   }
 
-  void _addMeeting(String title, String date, String time, String notes) {
-    setState(() {
-      _meetings.add({
-        'title': title,
-        'date': date,
-        'time': time,
-        'notes': notes,
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now();
-    List<Map<String, String>> upcomingMeetings = _meetings
-        .where(
-            (meeting) => DateFormat.yMd().parse(meeting['date']!).isAfter(now))
-        .toList();
-    List<Map<String, String>> previousMeetings = _meetings
-        .where(
-            (meeting) => DateFormat.yMd().parse(meeting['date']!).isBefore(now))
-        .toList();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Create Meeting'),
@@ -165,15 +192,16 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                             final title = _titleController.text;
                             final notes = _notesController.text;
                             final date = _selectedDate != null
-                                ? DateFormat.yMd().format(_selectedDate!)
-                                : 'Not selected';
+                                ? _selectedDate!
+                                : DateTime.now();
                             final time = _selectedTime != null
-                                ? _selectedTime!.format(context)
-                                : 'Not selected';
+                                ? DateTime(date.year, date.month, date.day,
+                                    _selectedTime!.hour, _selectedTime!.minute)
+                                : DateTime.now();
+                            final duration =
+                                '30'; // Default duration (in minutes)
 
-                            _addMeeting(title, date, time, notes);
-
-                            Navigator.pop(context);
+                            _createZoomMeeting(title, time, duration);
                           }
                         },
                         icon: Icon(Icons.check),
@@ -191,30 +219,6 @@ class _CreateMeetingPageState extends State<CreateMeetingPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 24.0),
-              Text('Upcoming Meetings',
-                  style:
-                      TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-              Divider(),
-              ...upcomingMeetings.map((meeting) => ListTile(
-                    title: Text(meeting['title']!),
-                    subtitle: Text(
-                        '${meeting['date']} at ${meeting['time']}\nNotes: ${meeting['notes']}'),
-                  )),
-              if (upcomingMeetings.isEmpty)
-                Center(child: Text('No upcoming meetings.')),
-              SizedBox(height: 24.0),
-              Text('Previous Meetings',
-                  style:
-                      TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-              Divider(),
-              ...previousMeetings.map((meeting) => ListTile(
-                    title: Text(meeting['title']!),
-                    subtitle: Text(
-                        '${meeting['date']} at ${meeting['time']}\nNotes: ${meeting['notes']}'),
-                  )),
-              if (previousMeetings.isEmpty)
-                Center(child: Text('No previous meetings.')),
             ],
           ),
         ),

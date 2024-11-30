@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dylexsia/screens/Teacher/HomeScreen.dart';
 import 'package:dylexsia/screens/Teacher/StudentsScreen.dart';
 import 'package:dylexsia/screens/Teacher/ReportGenerationScreen.dart';
+import 'Generateresult.dart';
 import 'CreateMeeting.dart';
 import 'add_assignment_page.dart';
 import '../LoginScreen.dart';
@@ -21,6 +22,7 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
     ReportGenerationScreen(), // Index 2
     CreateMeetingPage(), // Index 3
     AssignmentUploadPage(), // Index 4
+    DocumentAnalysisPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -95,6 +97,7 @@ class _TeacherDashboardState extends State<TeacherDashboard> {
             _buildDrawerItem(Icons.assessment, 'Reports', 2),
             _buildDrawerItem(Icons.meeting_room, 'Create Meeting', 3),
             _buildDrawerItem(Icons.assignment, 'Assignment', 4),
+            _buildDrawerItem(Icons.description, 'document analyze', 5),
             Divider(),
             _buildDrawerItem(Icons.logout, 'Logout', -1, onTap: _logout),
           ],

@@ -217,7 +217,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:dylexsia/screens/LoginScreen.dart'; // Adjust the path according to your project structure
+import 'package:dylexsia/screens/LoginScreen.dart'; 
 
 class SignUpScreen extends StatefulWidget {
   @override

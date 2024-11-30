@@ -7,23 +7,6 @@ import 'package:dylexsia/screens/Student/Student_Dashboard.dart';
 import 'package:dylexsia/screens/Parents/Parent_Dashboard.dart';
 import 'package:dylexsia/screens/Admin/Admin.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: LoginScreen(),
-    );
-  }
-}
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 

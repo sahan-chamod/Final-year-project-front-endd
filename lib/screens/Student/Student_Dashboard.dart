@@ -15,7 +15,7 @@ class StudentDashboard extends StatefulWidget {
 class _StudentDashboardState extends State<StudentDashboard> {
   int _selectedIndex = 0;
 
-  // List of screens for the IndexedStack
+  
   final List<Widget> _screens = [
     StudentHomeScreen(),
     CoursesScreen(),
@@ -114,18 +114,18 @@ class _StudentDashboardState extends State<StudentDashboard> {
               _buildDrawerItem(
                 icon: Icons.bar_chart,
                 text: 'Progress',
-                index: 2,
+                index: 5,
               ),
               _buildDrawerItem(
                 icon: Icons.account_circle,
                 text: 'Profile',
-                index: 3,
+                index: 2,
               ),
               _buildDrawerItem(
                 icon: Icons.upload,
                 text:
                     'Upload Assignment', // New drawer item for assignment upload
-                index: 4,
+                index: 3,
               ),
               Divider(),
               ListTile(
